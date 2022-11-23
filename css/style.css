@@ -133,6 +133,15 @@ button {
     color: #000000;
 }
 
+.white-40px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 110%;
+    letter-spacing: 1.42857px;
+    color: #FFFFFF;
+}
+
 h3 {
     font-family: 'Manrope',sans-serif;
     font-weight: 700;
@@ -638,6 +647,52 @@ footer .text-div{
         z-index: 10;
     }
 }
+
+/* HEADPHONES */
+
+.products-categoryback {
+    width: 100%;
+    padding: 98px 0;
+    background: #000000;
+}
+
+.products-category {
+    text-align: center;
+}
+
+.product {
+    margin: 220px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product span {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 10px;
+    color: #D87D4A;
+}
+
+.big-img {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.big-img div {
+    position: absolute;
+    bottom: -28px;
+    left: 0;
+    background: #000000;
+    mix-blend-mode: normal;
+    opacity: 0.15;
+    filter: blur(21.7463px);
+    width: 333px;
+    height: 74px;
+}
+
 
 
 
