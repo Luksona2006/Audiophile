@@ -355,7 +355,7 @@ nav ul li:hover a::after {
 .buy-divs {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     margin: 120px 0;
     padding: 0 80px;
 }
@@ -691,6 +691,21 @@ footer .text-div{
     filter: blur(21.7463px);
     width: 333px;
     height: 74px;
+}
+
+@media(max-width: 840px) {
+    .product {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 56px;
+    }
+    .product img {
+        width: 100%;
+    }
+    .product:nth-of-type(2) {
+        flex-direction: column-reverse;
+    }
 }
 
 
