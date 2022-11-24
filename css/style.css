@@ -25,6 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+    position: relative;
 }
 ol, ul {
 	list-style: none;
@@ -146,10 +147,21 @@ button {
     text-align: center;
 }
 
+.empty-text {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: 1.71429px;
+    color: #0000003f;
+    text-align: center;
+}
+
 .black-24px {
     font-family: 'Manrope',sans-serif;
     font-weight: 700;
     font-size: 24px;
+    text-align: center;
     line-height: 33px;
     letter-spacing: 1.71429px;
     color: #000000;
@@ -624,7 +636,7 @@ footer .text-div{
     gap: 36px;
     position: absolute;
     right: 0;
-    bottom: -340px;
+    top: 80px;
     width: 378px;
     background-color: #FFFFFF;
     border-radius: 8px;
@@ -659,16 +671,7 @@ footer .text-div{
 
 @media(max-width: 440px) {
     #list {
-        flex-direction: column;
-        gap: 36px;
-        position: absolute;
-        right: 0;
-        bottom: -300px;
-        width: 328px;
-        background-color: #FFFFFF;
-        border-radius: 8px;
-        padding: 32px;
-        z-index: 10;
+        width: 320px;
     }
 }
 

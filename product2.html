@@ -40,76 +40,122 @@
                 <!-- <div class="basketList-div">
                     <button id="basket"><img src="img/basket.svg" alt="basket"></button>
                     <div id="list" style="display: none;">
-                        <div id="cartSumAndRemove"><h4>CART (0)</h4><p class="black-p50">Remove All</p></div>
+                        <div id="cartSumAndRemove">
+                            <h4>CART (0)</h4>
+                            <p class="black-p50">Remove All</p>
+                        </div>
                         <div id="items">
-                            
+                            <h2 class="empty-text">CART IS EMPTY</h2>
                         </div>
                         <div class="totalAndButton">
-                            <div id="total"><p class="black-p50">TOTAL</p><h3>0$</h3></div>
+                            <div id="total">
+                                <p class="black-p50">TOTAL</p>
+                                <h3>0$</h3>
+                            </div>
                             <button class="orange-button">CHECKOUT</button>
                         </div>
                         <button id="hideList"><img src="img/hide-list.svg" alt="hideList"></button>
-                    </div>
-                </div> -->
+                    </div> -->
+                </div>
             </nav>
         </div>
     </header>
     <main>
-        <div class="products-categoryback">
-            <div class="container">
-                <div class="products-category">
-                    <h2 class="white-40px">EARPHONES</h2>
-                </div>
-            </div>
-        </div>
         <div class="container">
-            <section class="product">
-                <div class="big-img">
-                    <img src="img/Earphone/earphone.png" alt="earphone">
-                    <div></div>
-                </div>
+            <section class="product-details">
+                <a href="headphones.html">
+                    <p class="black-p50" id="goBack">GO BACK</p>
+                </a>
+                <img src="img/Headphones/big-imgs/XX99-I.png" alt="XX99">
                 <div class="text-div">
-                    <span>NEW PRODUCT</span>
-                    <h2 class="black-40px">YX1 WIRELESS
-                        EARPHONES
+                    <h2 class="black-40px">
+                        XX99 Mark I
+                        Headphones
                     </h2>
-                    <p class="black-p50">Tailor your listening experience with bespoke dynamic drivers from the new YX1
-                        Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its
-                        active noise cancellation feature.</p>
-                    <a href="#"><button class="orange-button">SEE PRODUCT</button></a>
+                    <p class="black-p50">As the gold standard for headphones, the classic XX99 Mark I offers detailed
+                        and accurate audio reproduction for audiophiles, mixing engineers, and music aficionados alike
+                        in studios and on the go.</p>
+                    <h4>$ 1,750</h4>
+                    <div>
+                        <div>
+                            <button id="countDown">
+                                <svg width="5" height="2" viewBox="0 0 5 2" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.25" d="M0.550508 1.516V0.2875H4.45051V1.516H0.550508Z"
+                                        fill="black" />
+                                </svg>
+                            </button>
+                            <h4>1</h4>
+                            <button id="countUp">
+                                <svg width="7" height="7" viewBox="0 0 7 7" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.25"
+                                        d="M2.89362 6.258V3.931H0.566621V2.7025H2.89362V0.382H4.12212V2.7025H6.43612V3.931H4.12212V6.258H2.89362Z"
+                                        fill="black" />
+                                </svg>
+                            </button>
+                        </div>
+                        <button class="orange-button addToCart">ADD TO CART</button>
+                    </div>
                 </div>
             </section>
-            <section class="buy-divs">
-                <a href="headphones.html" class="buy-div">
-                    <div class="img">
-                        <img src="img/headphones.png" alt="headphones">
-                        <div class="shadow"></div>
+            <section class="otherProducts">
+                <h5 class="black-32px">YOU MAY ALSO LIKE</h2>
+                    <div class="recomended-products">
+                        <div class="recomended">
+                            <img src="img/Headphones/medium-imgs/XX99-II.png" alt="XX99-I">
+                            <div>
+                                <h5 class="black-24px">XX99 MARK II</h5>
+                                <a href="product.html"><button class="orange-button">SEE PRODUCT</button></a>
+                            </div>
+                        </div>
+                        <div class="recomended">
+                            <img src="img/Headphones/medium-imgs/XX59.png" alt="XX59">
+                            <div>
+                                <h5 class="black-24px">XX59</h5>
+                                <a href="#"><button class="orange-button">SEE PRODUCT</button></a>
+                            </div>
+                        </div>
+                        <div class="recomended">
+                            <img src="img/Speakers/medium-imgs/ZX9.png" alt="ZX9">
+                            <div>
+                                <h5 class="black-24px">ZX9 SPEAKER</h5>
+                                <a href="#"><button class="orange-button">SEE PRODUCT</button></a>
+                            </div>
+                        </div>
                     </div>
-                    <h4>HEADPHONES</h4>
-                    <div class="shop"><span>SHOP</span>
-                        <div><img src="img/shop-arrow.png" alt="arrow"></div>
+                    <div class="buy-divs">
+                        <a href="headphones.html" class="buy-div">
+                            <div class="img">
+                                <img src="img/headphones.png" alt="headphones">
+                                <div class="shadow"></div>
+                            </div>
+                            <h4>HEADPHONES</h4>
+                            <div class="shop"><span>SHOP</span>
+                                <div><img src="img/shop-arrow.png" alt="arrow"></div>
+                            </div>
+                        </a>
+                        <a href="speakers.html" class="buy-div">
+                            <div class="img">
+                                <img src="img/speakers.png" alt="speakers">
+                                <div class="shadow"></div>
+                            </div>
+                            <h4>SPEAKERS</h4>
+                            <div class="shop"><span>SHOP</span>
+                                <div><img src="img/shop-arrow.png" alt="arrow"></div>
+                            </div>
+                        </a>
+                        <a href="earphones.html" class="buy-div">
+                            <div class="img">
+                                <img src="img/earphones.png" alt="earphones">
+                                <div class="shadow"></div>
+                            </div>
+                            <h4>EARPHONES</h4>
+                            <div class="shop"><span>SHOP</span>
+                                <div><img src="img/shop-arrow.png" alt="arrow"></div>
+                            </div>
+                        </a>
                     </div>
-                </a>
-                <a href="speakers.html" class="buy-div">
-                    <div class="img">
-                        <img src="img/speakers.png" alt="speakers">
-                        <div class="shadow"></div>
-                    </div>
-                    <h4>SPEAKERS</h4>
-                    <div class="shop"><span>SHOP</span>
-                        <div><img src="img/shop-arrow.png" alt="arrow"></div>
-                    </div>
-                </a>
-                <a href="earphones.html" class="buy-div">
-                    <div class="img">
-                        <img src="img/earphones.png" alt="earphones">
-                        <div class="shadow"></div>
-                    </div>
-                    <h4>EARPHONES</h4>
-                    <div class="shop"><span>SHOP</span>
-                        <div><img src="img/shop-arrow.png" alt="arrow"></div>
-                    </div>
-                </a>
             </section>
             <div class="manWith-headphones">
                 <div class="text-div">
