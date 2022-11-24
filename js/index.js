@@ -31,6 +31,7 @@ hideMenu.addEventListener('click', hidemenu)
 let basket = document.getElementById('basket');
 let list = document.getElementById('list');
 let blurr = document.getElementById('blur');
+let hideList = document.getElementById('hideList');
 
 function basketList() {
     if (list.style.display == 'none') {
@@ -45,9 +46,61 @@ function basketList() {
     }
 }
 
+function hidelist() {
+    list.style.display = 'none';
+    blurr.style.width = "0";
+    blurr.style.height = "0";
+}
+
 basket.addEventListener('click', basketList)
+hideList.addEventListener('click', hidelist);
 
 // Products
+
+let countDown = document.getElementById('countDown');
+let countUp = document.getElementById('countUp');
+let counter = document.getElementById('countDown').parentElement.childNodes[3];
+let count = 1;
+
+function countdown() {
+    if(count >= 2) {
+        count--;
+    }
+    counter.innerHTML = `${count}`;
+}
+
+function countup() {
+    count++;
+    counter.innerHTML = `${count}`;
+}
+
+countDown.addEventListener('click', countdown);
+countUp.addEventListener('click',countup);
+
+
+let addToCart = document.getElementsByClassName('addToCart');
+
+function addtocart(e) {
+    list.style.display = 'flex';
+    blurr.style.width = "100%";
+    blurr.style.height = "100%";
+    
+    let currentProduct = e.currentTarget.parentNode.parentNode;
+    let currentProductName = currentProduct.children[1].innerText;
+    let currentProductPrice = currentProduct.children[3].innerText;
+    let currentProductQuantity = currentProduct.getElementById('countDown').parentElement.childNodes[3].innerHTML;
+    console.log(currentProductName,currentProductPrice,currentProductQuantity)
+}
+
+
+// addToCart.forEach(element => {
+//     element.addEventListener('click',addtocart)
+//     element.style.cursor = 'pointer'
+// });
+
+for(let i = 0; i < addToCart.length; i++) {
+    addToCart[i].addEventListener('click',  addtocart)
+}
 
 
 

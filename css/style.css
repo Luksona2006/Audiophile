@@ -69,6 +69,7 @@ button {
     top: 0;
     width: 0;
     height: 0;
+    z-index: 2;
 }
 
 .orange-button {
@@ -85,20 +86,7 @@ button {
     transition: 0.5s all ease-out;
 }
 
-.blackFill-button {
-    padding: 16px 28px;
-    border: 1px #000000 solid;
-    background-color: #000000;
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: 1px;
-    color: #FFFFFF;
-    transition: 0.5s all ease-out;
-}
-
-.blackBorder-button {
+.black-button {
     padding: 16px 28px;
     border: 1px solid #000000;
     background: transparent;
@@ -111,8 +99,14 @@ button {
     transition: 0.5s all ease-out;
 }
 
-.orange-button:hover, .blackBorder-button:hover, .blackFill-button:hover {
-    transform: scale(1.05);
+.black-button:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.orange-button:hover {
+    background: #FBAF85;
+    border-color: #FBAF85;
 }
 
 .white-56px {
@@ -140,6 +134,25 @@ button {
     line-height: 110%;
     letter-spacing: 1.42857px;
     color: #FFFFFF;
+}
+
+.black-32px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 112%;
+    letter-spacing: 1.14286px;
+    color: #000000;
+    text-align: center;
+}
+
+.black-24px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: 1.71429px;
+    color: #000000;
 }
 
 h3 {
@@ -329,18 +342,6 @@ nav ul li:hover a::after {
     background-position: right;
     display: flex;    
 }
-
-.new-product span {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 19px;
-    letter-spacing: 10px;
-    color: #FFFFFF;
-    mix-blend-mode: normal;
-    opacity: 0.5;
-}
-
 .new-product .text-div {
     display: flex;
     justify-content: center;
@@ -455,7 +456,16 @@ nav ul li:hover a::after {
 }
 
 .text-div span {
+    font-family: 'Manrope',sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+
     color: #D87D4A;
+
     
 }
 
@@ -464,6 +474,14 @@ nav ul li:hover a::after {
     justify-content: space-between;
     align-items: center;
     margin: 140px 0;
+}
+
+.manWith-headphones span{
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 110%;
+    letter-spacing: 1.42857px;
 }
 
 .manPicture-wide {
@@ -585,7 +603,7 @@ footer .text-div{
     }
 }
 
-/* JS */
+/* BASKET LIST */
 
 .basketList-div {
     position: relative;
@@ -595,16 +613,22 @@ footer .text-div{
     z-index: 10;
 }
 
+#hideList {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
+
 #list {
     flex-direction: column;
     gap: 36px;
     position: absolute;
     right: 0;
-    bottom: -300px;
+    bottom: -340px;
     width: 378px;
     background-color: #FFFFFF;
     border-radius: 8px;
-    padding: 32px;
+    padding: 60px 32px 32px 32px;
     z-index: 10;
 }
 
@@ -629,7 +653,7 @@ footer .text-div{
     gap: 24px;
 }
 
-#list button {
+#list .orange-button {
     width: 100%;
 }
 
@@ -648,7 +672,7 @@ footer .text-div{
     }
 }
 
-/* HEADPHONES */
+/* PRODUCTS CATEGORY */
 
 .products-categoryback {
     width: 100%;
@@ -674,6 +698,17 @@ footer .text-div{
     line-height: 19px;
     letter-spacing: 10px;
     color: #D87D4A;
+}
+
+.new-product span {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 10px;
+    color: #FFFFFF;
+    mix-blend-mode: normal;
+    opacity: 0.5;
 }
 
 .big-img {
@@ -707,7 +742,109 @@ footer .text-div{
         flex-direction: column-reverse;
     }
 }
+/* PRODUCT PAGE */
 
+.otherProducts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 160px;
+}
+
+.recomended-products {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 80px;
+    margin-top: 80px;
+}
+
+.recomended {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+}
+
+.recomended div {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+
+@media(max-width: 1280px) {
+    .recomended-products {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        padding: 0 20px;
+    }
+}
+
+@media(max-width:480px) {
+    .recomended-products {
+        flex-direction: column;
+        gap: 80px;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+}
+
+/* PRODUCT DETAILS */
+
+.product-details {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 56px 0;
+    margin-top: 84px;
+    
+}
+
+.product-details a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.4s all ease-in-out;
+}
+
+.product-details a:hover {
+    transform: scale(1.1)
+}
+
+.product-details .text-div div {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    justify-content: space-between;
+}
+
+#countDown,#countUp {
+    border: none;
+    cursor: pointer;
+    background: transparent;
+}
+
+.product-details .text-div svg path {
+    cursor: pointer;
+    transition: 0.2s all ease-in-out;
+}
+
+.product-details .text-div svg:hover path{
+    fill: #000000;
+}
+
+@media(max-width:900px) {
+    .product-details {
+        flex-direction: column;
+        align-items: center;
+    }
+    .product-details img{
+        width: 100%;
+    }
+}
 
 
 
