@@ -80,17 +80,62 @@ countUp.addEventListener('click',countup);
 
 let addToCart = document.getElementsByClassName('addToCart');
 
+let items = document.getElementById('items');
+
+let total = document.getElementById('total').children[1];
+
+
+
 function addtocart(e) {
     list.style.display = 'flex';
     blurr.style.width = "100%";
     blurr.style.height = "100%";
+    let updatedPrice = '';
     
     let currentProduct = e.currentTarget.parentNode.parentNode;
     let currentProductName = currentProduct.children[1].innerText;
-    let currentProductPrice = currentProduct.children[3].innerText;
-    let currentProductQuantity = currentProduct.getElementById('countDown').parentElement.childNodes[3].innerHTML;
-    console.log(currentProductName,currentProductPrice,currentProductQuantity)
+    let currentProductPrice = currentProduct.children[3].innerHTML;
+    let currentProductImg = currentProduct.parentNode.children[1].src;
+    let currentProductQuantity = currentProduct.children[4].children[0].children[1].innerHTML;
+
+    for(let g = 0; g < currentProductPrice.length; g++) {
+        if(g !== 0) {
+            updatedPrice += currentProductPrice[g];
+        } 
+    }
+    console.log(typeof updatedPrice);
+    let sum = updatedPrice * currentProductQuantity;
+
+    let currentItem = `
+    <div class="item">
+        <div class="item-info">
+            <img src="${currentProductImg}" style="width: 64px; height: 64px" alt="item">
+            <div class="name-price">
+                <h6>${currentProductName}</h6>
+                <span>${currentProductPrice}</span>
+            </div>
+        </div>
+        <div class="counter">
+            <button id="countDown">
+                <svg width="5" height="2" viewBox="0 0 5 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.25" d="M0.550508 1.516V0.2875H4.45051V1.516H0.550508Z" fill="black"/>
+                </svg>
+            </button>
+            <h4>${currentProductQuantity}</h4>
+            <button id="countUp">
+                <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.25" d="M2.89362 6.258V3.931H0.566621V2.7025H2.89362V0.382H4.12212V2.7025H6.43612V3.931H4.12212V6.258H2.89362Z" fill="black"/>
+                </svg> 
+            </button>            
+        </div>
+    </div>
+    `
+    items.insertAdjacentHTML('beforeend',currentItem);
+    total.innerHTML = `$ ${sum}`
+    
 }
+
+
 
 
 // addToCart.forEach(element => {

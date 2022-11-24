@@ -846,6 +846,48 @@ footer .text-div{
     }
 }
 
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item h6 {
+    font-family: 'Manrope',sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 25px;
+    color: #000000;
+}
+
+.item span {
+    font-family: 'Manrope',sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 179%;
+    color: #000000;
+    mix-blend-mode: normal;
+    opacity: 0.5;
+}
+
+.counter {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.item-info {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.name-price {
+    display: flex;
+    flex-direction: column;
+}
 
 
 
