@@ -1,19 +1,19 @@
 let nav = document.querySelector('header').querySelector('nav');
 let allInfo = `<div class="basketList-div">
-<button id="basket"><img src="img/basket.svg" alt="basket"></button>
-<div id="list" style="display: none;">
-    <div id="cartSumAndRemove"><h4>CART (0)</h4><p class="black-p50">Remove All</p></div>
-    <div id="items">
-        <h2 class="empty-text">CART IS EMPTY</h2>
-    </div>
-    <div class="totalAndButton">
-        <div id="total"><p class="black-p50">TOTAL</p><h3>0$</h3></div>
-        <button class="orange-button">CHECKOUT</button>
-    </div>
-    <button id="hideList"><img src="img/hide-list.svg" alt="hideList"></button>
-</div>
-</div>`;
-nav.insertAdjacentHTML('beforeend',allInfo);
+                    <button id="basket"><img src="img/basket.svg" alt="basket"><div id="newProductAdded"></div></button>
+                    <div id="list" style="display: none;">
+                        <div id="cartSumAndRemove"><h4>CART (0)</h4><p class="black-p50">Remove All</p></div>
+                        <div id="items">
+                            <h2 class="empty-text">CART IS EMPTY</h2>
+                        </div>
+                        <div class="totalAndButton">
+                            <div id="total"><p class="black-p50">TOTAL</p><h3>0$</h3></div>
+                            <button class="orange-button">CHECKOUT</button>
+                        </div>
+                        <button id="hideList"><img src="img/hide-list.svg" alt="hideList"></button>
+                    </div>
+                </div>`;
+nav.insertAdjacentHTML('beforeend', allInfo);
 
 
 
@@ -80,7 +80,7 @@ let counter = document.getElementById('countDown').parentElement.childNodes[3];
 let count = 1;
 
 function countdown() {
-    if(count >= 2) {
+    if (count >= 2) {
         count--;
     }
     counter.innerHTML = `${count}`;
@@ -92,7 +92,7 @@ function countup() {
 }
 
 countDown.addEventListener('click', countdown);
-countUp.addEventListener('click',countup);
+countUp.addEventListener('click', countup);
 
 // CART VARIABLES
 
@@ -109,43 +109,110 @@ let cartRemove = cartSumAndRemove.children[1];
 
 function removeItems() {
     items.innerHTML = `<h2 class="empty-text">CART IS EMPTY</h2>`;
-    total.innerHTML = `$0`;
+    total.innerHTML = `$ 0`;
+    totalSum = 0;
+    cartItemsSum = 0;
     cartSumAndRemove.children[0].innerHTML = `CART (0)`;
+    newProductAdded.style.display = "none"
+    newProductAdded.innerText = `${cartItemsSum}`
 }
 
-cartRemove.addEventListener('click',removeItems);
+cartRemove.addEventListener('click', removeItems);
 
 // ADD TO CART
 let totalSum = 0;
 
+function countDownList(e) {
+    let currentQuantityList = e.currentTarget.parentElement.children[1];
+    let currentPriceList = currentQuantityList.parentElement.parentElement.children[0].children[1].children[1].innerHTML;
+    let currentQuantityListSum = currentQuantityList.innerText;
+    let updatedPriceList = ''
+
+    for (let d = 0; d < currentPriceList.length; d++) {
+        if (currentPriceList[d] != ' ' && currentPriceList[d] != '$' && currentPriceList[d] != ',') {
+            updatedPriceList += currentPriceList[d];
+        }
+    }
+    updatedPriceList = +updatedPriceList;
+    currentQuantityListSum = +currentQuantityListSum;
+    currentQuantityListSum--;
+
+    totalSum -= updatedPriceList;
+    total.innerHTML = `<h3>$ ${totalSum}</h3>`
+
+    currentQuantityList.innerHTML = `${currentQuantityListSum}`;
+
+    if (currentQuantityListSum == '0') {
+        currentQuantityList.parentElement.parentElement.remove();
+        document.getElementById('cartSumAndRemove').children[0].innerHTML = `<h4>CART (${document.getElementsByClassName('item').length})</h4>`
+        newProductAdded.innerText = `${document.getElementsByClassName('item').length}`
+    }
+    if (document.getElementsByClassName('item').length <= 0) {
+        currentQuantityList.parentElement.parentElement.remove()
+        items.innerHTML = `<h2 class="empty-text">CART IS EMPTY</h2>`;
+        console.log(document.getElementById('cartSumAndRemove').children[0].innerHTML = `<h4>CART (0)</h4>`);
+        totalSum = 0;
+        total.innerHTML = `$ 0`
+        newProductAdded.innerText = `${document.getElementsByClassName('item').length}`
+        newProductAdded.style.display = 'none';
+    }
+
+}
+
+
+function countUpList(e) {
+    let currentQuantityList2 = e.currentTarget.parentElement.children[1];
+    let currentPriceList2 = currentQuantityList2.parentElement.parentElement.children[0].children[1].children[1].innerHTML;
+    let currentQuantityListSum2 = currentQuantityList2.innerText;
+    let updatedPriceList2 = ''
+
+    for (let s = 0; s < currentPriceList2.length; s++) {
+        if (currentPriceList2[s] != ' ' && currentPriceList2[s] != '$' && currentPriceList2[s] != ',') {
+            updatedPriceList2 += currentPriceList2[s];
+        }
+    }
+
+    updatedPriceList2 = +updatedPriceList2;
+    currentQuantityListSum2 = +currentQuantityListSum2;
+    currentQuantityListSum2++;
+
+    totalSum += updatedPriceList2;
+    total.innerHTML = `<h3>$ ${totalSum}</h3>`
+
+    currentQuantityList2.innerHTML = `${currentQuantityListSum2}`;
+}
+
 function addtocart(e) {
+    let newProductAdded = document.getElementById('newProductAdded');
     items.querySelector('.empty-text').style.display = 'none';
-    
+
     list.style.display = 'flex';
     blurr.style.width = "100%";
     blurr.style.height = "100%";
     let updatedPrice = '';
     let cartSum = cartSumAndRemove.children[0];
-    
+
     let currentProduct = e.currentTarget.parentNode.parentNode;
     let currentProductName = currentProduct.children[1].innerText;
-    if(currentProductName.endsWith('HEADPHONES')) {
+
+    if (currentProductName.endsWith('HEADPHONES')) {
         currentProductName = currentProductName.slice(0, currentProductName.length - 10);
     }
-    if(currentProductName.endsWith('SPEAKER')) {
+    if (currentProductName.endsWith('SPEAKER')) {
         currentProductName = currentProductName.slice(0, currentProductName.length - 7);
     }
-    if(currentProductName.endsWith('EARPHONES')) {
+    if (currentProductName.endsWith('EARPHONES')) {
         currentProductName = currentProductName.slice(0, currentProductName.length - 9);
     }
     let currentProductPrice = currentProduct.children[3].innerHTML;
     let currentProductImg = currentProduct.parentNode.children[1].src;
     let currentProductQuantity = currentProduct.children[4].children[0].children[1].innerHTML;
+    // let currentProductQuantity = currentProduct.children[3].innerHTML;
 
-    for(let g = 0; g < currentProductPrice.length; g++) {
-        if(currentProductPrice[g] != ' ' && currentProductPrice[g] != '$' && currentProductPrice[g] != ',') {
+    for (let g = 0; g < currentProductPrice.length; g++) {
+        if (currentProductPrice[g] != ' ' && currentProductPrice[g] != '$' && currentProductPrice[g] != ',') {
             updatedPrice += currentProductPrice[g];
-        } 
+        }
     }
 
     let sum = +updatedPrice * +currentProductQuantity;
@@ -175,13 +242,26 @@ function addtocart(e) {
         </div>
     </div>
     `
-    items.insertAdjacentHTML('beforeend',currentItem);
+    items.insertAdjacentHTML('beforeend', currentItem);
     total.innerHTML = `$ ${totalSum}`
     let cartItemsSum = items.children.length - 1;
     cartSumAndRemove.children[0].innerHTML = `CART (${cartItemsSum})`;
-    
-    
+    newProductAdded.style.display = "block"
+    newProductAdded.innerText = `${cartItemsSum}`
+    for (let g = 0; g <= document.getElementsByClassName('item')[0].parentElement.children.length; g++) {
+        document.getElementsByClassName('item')[g].children[1].lastElementChild.addEventListener('click', countUpList);
+        document.getElementsByClassName('item')[g].children[1].firstElementChild.addEventListener('click', countDownList);
+    }
+
 }
+
+// for(let g = 0; g < document.getElementsByClassName('counter').length; g++) {
+//     document.getElementsByClassName('counter')[g][0].children[0].addEventListener('click', countDownList);
+//     document.getElementsByClassName('counter')[g][0].children[2].addEventListener('click', countUpList);
+// }
+
+// document.getElementsByClassName('counter')[0].children[0].addEventListener('click', countDownList);
+// document.getElementsByClassName('counter')[0].children[2].addEventListener('click', countUpList);
 
 
 // addToCart.forEach(element => {
@@ -189,6 +269,6 @@ function addtocart(e) {
 //     element.style.cursor = 'pointer'
 // });
 
-for(let i = 0; i < addToCart.length; i++) {
-    addToCart[i].addEventListener('click',  addtocart)
+for (let i = 0; i < addToCart.length; i++) {
+    addToCart[i].addEventListener('click', addtocart)
 }

@@ -633,6 +633,27 @@ footer .text-div{
     z-index: 10;
 }
 
+#newProductAdded {
+    display: none;
+    width: 16px;
+    height: 16px;
+    background-color: #FFFFFF;
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    border-radius: 50px;
+
+    font-family: 'Manrope',sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    text-align: center;
+    line-height: 16px;
+    padding-left: 1px;
+    letter-spacing: 1.71429px;
+    color: #000000;
+    
+}
+
 #hideList {
     position: absolute;
     top: 16px;
