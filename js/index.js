@@ -216,13 +216,12 @@ function addtocart(e) {
         }
     }
 
-    // IF PRODUCT EXIST IN CART
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
         window.onscroll = () => {window.scrollTo(window.scrollTo(0,0));};
     }, 400);  
 
+    // IF PRODUCT EXIST IN CART
     // for (let j = 1; j < items.children.length; j++) {
     //     if (items.children[j].children[0].children[1].children[0].innerText === `${currentProductName}`) {
     //         let sameProductQuantity = items.children[j].children[1].children[1].innerHTML;
