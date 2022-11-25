@@ -15,8 +15,6 @@ let allInfo = `<div class="basketList-div">
                 </div>`;
 nav.insertAdjacentHTML('beforeend', allInfo);
 
-
-
 // MENU
 
 let showMenu = document.getElementById('showMenu');
