@@ -296,6 +296,8 @@ function addtocart(e) {
     cartSumAndRemove.children[0].innerHTML = `CART (${cartItemsSum})`;
     newProductAdded.style.display = "block"
     newProductAdded.innerText = `${cartItemsSum}`
+    count = 1;
+    counter.innerHTML = `${count}`;
     for (let g = 0; g <= document.getElementsByClassName('item')[0].parentElement.children.length; g++) {
         document.getElementsByClassName('item')[g].children[1].lastElementChild.addEventListener('click', countUpList);
         document.getElementsByClassName('item')[g].children[1].firstElementChild.addEventListener('click', countDownList);
