@@ -194,7 +194,22 @@ function addtocart(e) {
     let cartSum = cartSumAndRemove.children[0];
 
     let currentProduct = e.currentTarget.parentNode.parentNode;
-    let currentProductName = currentProduct.children[1].innerText;
+    let currentProductName = ''
+
+    let currentProductPrice = ''
+    let currentProductImg = currentProduct.parentNode.children[1].src;
+    let currentProductQuantity = '';
+
+    // BECAUSE OF CHILDS WE WIL DEFINE HAS HE MORE CHILD ELEMENTS THAN IT SHOULD BE WITHOUT SPAN TEXT ('NEW PRODUCT') OR NOT;
+    if(currentProduct.children[0].innerHTML == 'NEW PRODUCT') {
+        currentProductQuantity = currentProduct.children[4].children[0].children[1].innerHTML;
+        currentProductPrice = currentProduct.children[3].innerHTML;
+        currentProductName = currentProduct.children[1].innerText;
+    } else {
+        currentProductQuantity = currentProduct.children[3].children[0].children[1].innerHTML;
+        currentProductPrice = currentProduct.children[2].innerHTML;
+        currentProductName = currentProduct.children[0].innerText;
+    }
 
     if (currentProductName.endsWith('HEADPHONES')) {
         currentProductName = currentProductName.slice(0, currentProductName.length - 10);
@@ -205,10 +220,6 @@ function addtocart(e) {
     if (currentProductName.endsWith('EARPHONES')) {
         currentProductName = currentProductName.slice(0, currentProductName.length - 9);
     }
-    let currentProductPrice = currentProduct.children[3].innerHTML;
-    let currentProductImg = currentProduct.parentNode.children[1].src;
-    let currentProductQuantity = currentProduct.children[4].children[0].children[1].innerHTML;
-    // let currentProductQuantity = currentProduct.children[3].innerHTML;
 
     for (let g = 0; g < currentProductPrice.length; g++) {
         if (currentProductPrice[g] != ' ' && currentProductPrice[g] != '$' && currentProductPrice[g] != ',') {

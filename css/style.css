@@ -175,6 +175,25 @@ button {
     color: #D87D4A;
 }
 
+.orange-13px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 192%;
+    letter-spacing: 0.928571px;
+    text-transform: uppercase;
+    color: #D87D4A;
+}
+
+.black-12px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.214286px;
+    color: #000000;
+}
+
 h3 {
     font-family: 'Manrope',sans-serif;
     font-weight: 700;
@@ -1006,7 +1025,135 @@ footer .text-div{
 }
 
 
+/* FORM */
+
+.checkout-summary {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    margin: 80px 0;
+}
+
+.billing-details, .shipping-info, .paymant-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.inputs div{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
 
+
+.radio {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    
+}
+
+form input[type="number"],form input[type="email"],form input[type="text"], form input[type="tel"], form input[list="country"]{
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #CFCFCF;
+    border-radius: 8px;
+    padding: 18px 0 18px 24px;
+
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: -0.25px;
+    color: #000000;
+}
+
+form input::placeholder {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: -0.25px;
+    color: #000000;
+    mix-blend-mode: normal;
+    opacity: 0.4;
+}
+
+form input:active {
+    background: #FFFFFF;
+    border: 1px solid #D87D4A;
+    border-radius: 8px;
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: -0.25px;
+    color: #000000;
+}
+
+form input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.radio-div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #FFFFFF;
+    border: 1px solid #CFCFCF;
+    border-radius: 8px;
+    padding: 18px 0 18px 24px;
+
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: -0.25px;
+    color: #000000;
+}
+
+
+.method {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.equals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.equals1 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.summary {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
 
 
