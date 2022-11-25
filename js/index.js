@@ -312,7 +312,6 @@ function addtocart(e) {
         document.getElementsByClassName('item')[g].children[1].lastElementChild.addEventListener('click', countUpList);
         document.getElementsByClassName('item')[g].children[1].firstElementChild.addEventListener('click', countDownList);
     }
-
 }
 
 for (let i = 0; i < addToCart.length; i++) {
