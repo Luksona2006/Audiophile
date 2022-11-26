@@ -633,12 +633,15 @@ footer .text-div{
     }
 }
 
-@media(max-width:480px) {
+@media(max-width:530px) {
     .buy-divs {
         flex-direction: column;
     }
     footer nav ul {
         flex-direction: column;
+    }
+    footer .text-div {
+        text-align: center;
     }
 }
 
@@ -833,13 +836,14 @@ footer .text-div{
     }
 }
 
-@media(max-width:480px) {
+@media(max-width:530px) {
     .recomended-products {
         flex-direction: column;
         gap: 80px;
         align-items: center;
         flex-wrap: nowrap;
     }
+    
 }
 
 /* PRODUCT DETAILS */

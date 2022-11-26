@@ -315,3 +315,6 @@ function addtocart(e) {
 for (let i = 0; i < addToCart.length; i++) {
     addToCart[i].addEventListener('click', addtocart)
 }
+
+// localStorage.setItem('items', JSON.stringify(document.getElementById('items').innerHTML));
+// JSON.parse(localStorage.getItem('items'));
