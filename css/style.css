@@ -144,7 +144,6 @@ button {
     line-height: 112%;
     letter-spacing: 1.14286px;
     color: #000000;
-    text-align: center;
 }
 
 .empty-text {
@@ -166,6 +165,31 @@ button {
     letter-spacing: 1.71429px;
     color: #000000;
 }
+
+.black-18px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+}
+
+.white-18px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+
+.orange-18px {
+    font-family: 'Manrope',sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    color: #D87D4A;
+}
+
 .orange-15px {
     font-family: 'Manrope',sans-serif;
     font-style: normal;
@@ -882,6 +906,14 @@ footer .text-div{
     background: transparent;
 }
 
+#countDown svg path ,#countUp svg path, .counter button svg path {
+    transition: 0.2s all ease-in;
+}
+
+#countDown:hover svg path,#countUp:hover svg path, .counter button:hover svg path{
+    fill: #D87D4A;
+}
+
 .product-details .text-div svg path {
     cursor: pointer;
     transition: 0.2s all ease-in-out;
@@ -1067,10 +1099,10 @@ footer .text-div{
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 2fr 1fr ;
     gap: 40px;
-    
+    margin: 120px 0;
 }
 
 form input[type="number"],form input[type="email"],form input[type="text"], form input[type="tel"], form input[list="country"]{
@@ -1153,11 +1185,88 @@ form input[type="radio"] {
     gap: 16px;
 }
 
+/* SUMMARY */
+
 .summary {
     padding: 32px;
     display: flex;
     flex-direction: column;
+    gap: 36px;
     align-self: flex-start;
 }
 
+#paymentItemsList {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
 
+.spended-money {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spended-money div:nth-child(4){
+    margin-top: 12px
+}
+
+
+.spended-money div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* POPUP */
+
+#popUp {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translate(-50%,-25%);
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 48px;
+    max-width: 540px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    z-index: 10;
+    transition: 0.2s all ease-in-out;
+}
+
+#popUp a button{
+    width: 100%;
+}
+
+.ordered {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.grandTotal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 198px;
+    height: 140px;
+    background-color: #000000;
+    border-radius: 0 10px 10px 0;
+    padding: 41px 0 41px 32px;
+}
+
+#blur2 {
+    background-color: #464646;
+    opacity: 0.4;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: 2;
+}
