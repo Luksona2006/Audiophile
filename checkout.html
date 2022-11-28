@@ -26,7 +26,7 @@
             </div>
             <div class="grandTotal">
                 <p class="white-p50">GRAND TOTAL</p>
-                <p class="white-18px">3232</p>
+                <p class="white-18px">4000$</p>
             </div>
         </div>
         <a href="index.html"><button class="orange-button">BACK TO HOME</button></a>
@@ -475,9 +475,15 @@
                 popUp.style.top = "25%"
                 // GET ITEMS
                 let boughtItems = document.getElementById('boughtItems');
-                JSON.parse(localStorage.getItem('items')).forEach(element => {
-                    boughtItems.insertAdjacentElement('beforeend',element);
-                });
+                boughtItems.insertAdjacentHTML('beforeend', JSON.parse(localStorage.getItem('items')));
+                document.querySelectorAll('.counter').forEach((element, index) => {
+                    element.children[0].style.display = 'none';
+                    element.children[1].innerHTML += 'x'
+                    element.children[2].style.display = 'none';
+                })
+                document.querySelectorAll('.item').forEach(element => {
+                    element.style.gap = '24px'
+                })
         }
     </script>
     <script src="https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json">
