@@ -13,15 +13,41 @@ let allInfo = `<div class="basketList-div">
                         <button id="hideList"><img src="img/hide-list.svg" alt="hideList"></button>
                     </div>
                 </div>`;
-nav.insertAdjacentHTML('beforeend', allInfo);
-// for (let k = 0; k <= JSON.parse(localStorage.getItem('items')).length; k++) {
-//     if(document.getElementById('items').insertAdjacentHTML('beforeend', JSON.parse(localStorage.getItem('items')) != null) {
-//         document.getElementById('items').insertAdjacentHTML('beforeend', JSON.parse(localStorage.getItem('items')));
-//     }
-// }
-if(document.getElementById('items').insertAdjacentHTML('beforeend', JSON.parse(localStorage.getItem('items'))) != null) {
-    document.getElementById('items').insertAdjacentHTML('beforeend', JSON.parse(localStorage.getItem('items')));
+
+let numofitems = 0;
+if(typeof localStorage['items'] !== 'undefined') {
+    JSON.parse(localStorage.getItem('items')).forEach(() => {
+        numofitems++;
+    });
 }
+
+
+if (numofitems !== 0) {
+    allInfo = `<div class="basketList-div">
+                <button id="basket"><img src="img/basket.svg" alt="basket"><div id="newProductAdded">${numofitems}</div></button>
+                <div id="list" style="display: none;">
+                    <div id="cartSumAndRemove"><h4>CART (${numofitems})</h4><p class="black-p50">Remove All</p></div>
+                    <div id="items">
+                        <h2 style="display:none;" class="empty-text">CART IS EMPTY</h2>
+                    </div>
+                    <div class="totalAndButton">
+                        <div id="total"><p class="black-p50">TOTAL</p><h3 class="black-18px">$ ${JSON.parse(localStorage.getItem('totalSum'))}</h3></div>
+                        <a href="checkout.html"><button class="orange-button" id="checkout">CHECKOUT</button></a>
+                    </div>
+                    <button id="hideList"><img src="img/hide-list.svg" alt="hideList"></button>
+                </div>
+            </div>`;
+}
+
+
+nav.insertAdjacentHTML('beforeend', allInfo);
+if(typeof localStorage['items'] !== 'undefined') {
+    JSON.parse(localStorage.getItem('items')).forEach(element => {
+        document.getElementById('items').insertAdjacentHTML('beforeend',`${element}`)
+    })
+}
+
+
 
 
 let itemsArray = [];
@@ -124,12 +150,23 @@ function removeItems() {
     cartSumAndRemove.children[0].innerHTML = `CART (0)`;
     newProductAdded.style.display = "none"
     newProductAdded.innerText = `${cartItemsSum}`
+
+    itemsArray = []; 
+    localStorage.removeItem('items');
+    localStorage.removeItem('totalSum');
 }
 
 cartRemove.addEventListener('click', removeItems);
 
 // ADD TO CART
-let totalSum = 0;
+let totalSumText = document.querySelector('#total').lastChild.innerHTML
+let totalSum = '';
+for (let f = 0; f < totalSumText.length; f++) {
+    if (f != 0 && f != 1) {
+        totalSum += totalSumText[f];
+    }
+}
+totalSum = +totalSum
 
 function countDownList(e) {
     let currentQuantityList = e.currentTarget.parentElement.children[1];
@@ -164,7 +201,12 @@ function countDownList(e) {
         total.innerHTML = `$ 0`
         newProductAdded.innerText = `${document.getElementsByClassName('item').length}`
         newProductAdded.style.display = 'none';
+
+        itemsArray = []; 
+        localStorage.removeItem('items');
+        localStorage.removeItem('totalSum');
     }
+    localStorage.setItem('totalSum', JSON.stringify(totalSum));
 
 }
 
@@ -187,8 +229,15 @@ function countUpList(e) {
 
     totalSum += updatedPriceList2;
     total.innerHTML = `<h3 class="black-18px">$ ${totalSum}</h3>`
-
+    itemsArray.forEach((element) => {
+        if(element == currentQuantityList2.parentElement.parentElement) {
+            currentQuantityList2.innerHTML = `${currentQuantityListSum2}`;
+            itemsArray[element] = JSON.stringify(`${currentQuantityList2.parentElement.parentElement}`);
+        }
+    })
     currentQuantityList2.innerHTML = `${currentQuantityListSum2}`;
+
+    localStorage.setItem('totalSum', JSON.stringify(totalSum));
 }
 
 function addtocart(e) {
@@ -310,6 +359,8 @@ function addtocart(e) {
     let sum = +updatedPrice * +currentProductQuantity;
     totalSum += sum;
     total.innerHTML = `$ ${totalSum}`
+    localStorage.setItem('totalSum', totalSum)
+    totalSumText = `$ ${totalSum}`
 
     let cartItemsSum = items.children.length - 1;
     cartSumAndRemove.children[0].innerHTML = `CART (${cartItemsSum})`;
@@ -321,7 +372,7 @@ function addtocart(e) {
         document.getElementsByClassName('item')[g].children[1].lastElementChild.addEventListener('click', countUpList);
         document.getElementsByClassName('item')[g].children[1].firstElementChild.addEventListener('click', countDownList);
     }
- 
+
 }
 
 for (let i = 0; i < addToCart.length; i++) {
