@@ -51,6 +51,11 @@ if(typeof localStorage['items'] !== 'undefined') {
 
 
 let itemsArray = [];
+if(localStorage['items'] !== 'undefined') {
+    JSON.parse(localStorage.getItem('items')).forEach(element => {
+        itemsArray.push(element);
+    })
+}
 // MENU
 
 let showMenu = document.getElementById('showMenu');
