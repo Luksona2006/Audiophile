@@ -14,22 +14,24 @@
 <body>
     <div id="blur2"></div>
     <div id="popUp">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="32" r="32" fill="#D87D4A"/>
-            <path d="M20.7539 33.3328L27.5054 40.0843L43.3085 24.2812" stroke="white" stroke-width="4"/>
-        </svg>
-        <h2 class="black-32px">THANK YOU FOR YOUR ORDER</h2>   
-        <p class="black-p50">You will receive an email confirmation shortly.</p>
-        <div class="ordered">
-            <div id="boughtItems">
-
+        <div class="popUp-in">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="32" fill="#D87D4A"/>
+                <path d="M20.7539 33.3328L27.5054 40.0843L43.3085 24.2812" stroke="white" stroke-width="4"/>
+            </svg>
+            <h2 class="black-32px">THANK YOU FOR YOUR ORDER</h2>   
+            <p class="black-p50">You will receive an email confirmation shortly.</p>
+            <div class="ordered">
+                <div id="boughtItems">
+    
+                </div>
+                <div class="grandTotal">
+                    <p class="white-p50">GRAND TOTAL</p>
+                    <p class="white-18px">$ 0</p>
+                </div>
             </div>
-            <div class="grandTotal">
-                <p class="white-p50">GRAND TOTAL</p>
-                <p class="white-18px">4000$</p>
-            </div>
+            <a href="index.html"><button id="backToHome" onclick="clearStorage()" class="orange-button">BACK TO HOME</button></a>
         </div>
-        <a href="index.html"><button class="orange-button">BACK TO HOME</button></a>
     </div>
     <header>
         <div class="container">
@@ -55,20 +57,6 @@
                         </li>
                     </ul>
                 </div>
-                <!-- <div class="basketList-div">
-                    <button id="basket"><img src="img/basket.svg" alt="basket"></button>
-                    <div id="list" style="display: none;">
-                        <div id="cartSumAndRemove"><h4>CART (0)</h4><p class="black-p50">Remove All</p></div>
-                        <div id="items">
-                            
-                        </div>
-                        <div class="totalAndButton">
-                            <div id="total"><p class="black-p50">TOTAL</p><h3>0$</h3></div>
-                            <button class="orange-button">CHECKOUT</button>
-                        </div>
-                        <button id="hideList"><img src="img/hide-list.svg" alt="hideList"></button>
-                    </div>
-                </div> -->
             </nav>
         </div>
     </header>
@@ -396,10 +384,10 @@
                             
                         </div>
                         <div class="spended-money">
-                            <div><p class="black-p50">TOTAL</p><h3 class="black-18px">2</h3></div>
-                            <div><p class="black-p50">SHIPPING</p><h3 class="black-18px">2</h3></div>
-                            <div><p class="black-p50">VAT(INCLUDED)</p><h3 class="black-18px">2</h3></div>
-                            <div><p class="black-p50">GRAND TOTAL</p><h3 class="orange-18px">2</h3></div>
+                            <div><p class="black-p50">TOTAL</p><h3 class="black-18px">$ 0</h3></div>
+                            <div><p class="black-p50">SHIPPING</p><h3 class="black-18px">$ 0</h3></div>
+                            <div><p class="black-p50">VAT(INCLUDED)</p><h3 class="black-18px">$ 0</h3></div>
+                            <div><p class="black-p50">GRAND TOTAL</p><h3 class="orange-18px">$ 0</h3></div>
                         </div>
                         <button class="orange-button" id="pay" onclick="payForItems()" type="button">CONTINUE & PAY</button>
                     </div>
@@ -465,11 +453,34 @@
         </div>
     </footer>
 
-    <script src="js/index.js"></script>
-    <!-- CHECKOUT -->
+    
     <script>
+        let nav = document.querySelector('header').querySelector('nav');
+        let allInfo = `<button id="basket"><img src="img/basket.svg" alt="basket"></button></div>`;
+        nav.insertAdjacentHTML('beforeend', allInfo)
+
+        JSON.parse(localStorage.getItem('items')).forEach(element => {
+            document.getElementById('paymentItemsList').insertAdjacentHTML('beforeend', element)
+        })
+        document.querySelectorAll('.counter').forEach(element => {
+            element.children[0].style.display = 'none';
+            element.children[1].innerHTML += 'x'
+            element.children[2].style.display = 'none';
+        })
+        document.querySelector('.spended-money').children[0].children[1].innerHTML = `$ ${JSON.parse(localStorage.getItem('totalSum'))}`
+        let shipping = 12.5;
+        shipping = Math.round(shipping * +JSON.parse(localStorage.getItem('quantity')) * 100) / 100; 
+        document.querySelector('.spended-money').children[1].children[1].innerHTML = `$ ${shipping}`;
+        let vat = 18 / 100;
+        vat = Math.round(shipping + JSON.parse(localStorage.getItem('totalSum')) * (vat) * 100) / 100;
+        document.querySelector('.spended-money').children[2].children[1].innerHTML = `$ ${vat}`;
+        let grandTotal = Math.round((JSON.parse(localStorage.getItem('totalSum')) + vat + shipping) * 100) / 100;
+        document.querySelector('.spended-money').children[3].children[1].innerHTML = `$ ${grandTotal}`;
+        document.querySelector('.grandTotal').children[1].innerHTML = `$ ${grandTotal}`
+
         let popUp = document.getElementById('popUp');
         function payForItems() {
+                // boughtItems.innerHTML = '';
                 document.getElementById('blur2').style.width = "100%";
                 document.getElementById('blur2').style.height = "100%";
                 popUp.style.top = "25%"
@@ -478,7 +489,7 @@
                 JSON.parse(localStorage.getItem('items')).forEach(element => {
                     boughtItems.insertAdjacentHTML('beforeend', element);
                 })
-                document.querySelectorAll('.counter').forEach((element, index) => {
+                boughtItems.querySelectorAll('.counter').forEach(element => {
                     element.children[0].style.display = 'none';
                     element.children[1].innerHTML += 'x'
                     element.children[2].style.display = 'none';
@@ -486,10 +497,35 @@
                 document.querySelectorAll('.item').forEach(element => {
                     element.style.gap = '24px'
                 })
-
+                boughtItems.querySelectorAll('.item').forEach((element,index) => {
+                    if(index > 0){
+                        element.style.display = 'none';
+                    }
+                })
                 itemsArray = []; 
-                localStorage.removeItem('items');
-                localStorage.removeItem('totalSum');
+                if(JSON.parse(localStorage.getItem('items')).length > 1) {
+                    boughtItems.insertAdjacentHTML('beforeend', `<button id="itemsStore" onclick="showProducts()">and ${JSON.parse(localStorage.getItem('items')).length - 1} other item(s)</button>`)
+                }
+        }
+        
+        function clearStorage() {
+            localStorage.removeItem('items');
+            localStorage.removeItem('quantity');
+            localStorage.removeItem('totalSum');
+        }
+
+        function showProducts() {
+            boughtItems.querySelectorAll('.item').forEach((element,index) => {
+                    if(index != 0) {
+                        element.style.transition = 'all 0.2s ease-out'
+                        element.style.opacity = '0'
+                        element.style.display = 'flex'
+                    }
+                    setTimeout(() => {
+                        element.style.opacity = '1'
+                    }, 200); 
+                })
+            boughtItems.lastChild.style.display = 'none';
         }
     </script>
     <script src="https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json">

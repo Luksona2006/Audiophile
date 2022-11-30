@@ -158,8 +158,10 @@ function removeItems() {
     newProductAdded.innerText = `${cartItemsSum}`
 
     itemsArray = []; 
+    quantity = 0
     localStorage.removeItem('items');
     localStorage.removeItem('totalSum');
+    localStorage.removeItem('quantity');
 }
 
 cartRemove.addEventListener('click', removeItems);
@@ -167,12 +169,18 @@ cartRemove.addEventListener('click', removeItems);
 // ADD TO CART
 let totalSumText = document.querySelector('#total').lastChild.innerHTML
 let totalSum = '';
+let quantity = '';
 for (let f = 0; f < totalSumText.length; f++) {
     if (f != 0 && f != 1) {
         totalSum += totalSumText[f];
     }
 }
 totalSum = +totalSum
+if(typeof localStorage['quantity'] !== 'undefined') {
+    quantity = 0;
+    quantity = JSON.parse(localStorage.getItem('quantity'));
+    quantity = +quantity;
+}
 
 function countDownList(e) {
     let currentQuantityList = e.currentTarget.parentElement.children[1];
@@ -220,6 +228,10 @@ function countDownList(e) {
         localStorage.removeItem('items');
         localStorage.removeItem('totalSum');
     }
+
+    quantity = +quantity;
+    quantity--;
+    localStorage.setItem('quantity', JSON.stringify(quantity));
 }
 
 
@@ -256,6 +268,10 @@ function countUpList(e) {
         itemsArray.push(`<div class="item">${element.innerHTML}</div>`)
     })
     localStorage.setItem('items', JSON.stringify(itemsArray));
+
+    quantity = +quantity;
+    quantity++;
+    localStorage.setItem('quantity', JSON.stringify(quantity));
 }
 
 function addtocart(e) {
@@ -331,6 +347,12 @@ function addtocart(e) {
                             </div>
                         </div>
                         `
+    quantity = 0;
+    quantity = JSON.parse(localStorage.getItem('quantity'));
+    quantity = +quantity;
+    quantity += +currentProductQuantity;
+    localStorage.setItem('quantity', JSON.stringify(quantity));
+
     // IF PRODUCT EXIST IN CART
 
     let sameProduct = false;
