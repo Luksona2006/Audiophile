@@ -479,12 +479,13 @@
 
         let popUp = document.getElementById('popUp');
         function payForItems() {
+            let correctFormat = false;
             form.querySelectorAll('input').forEach(element => {
-                if(element.style.border === '2px solid #CD2C2C') {
-                    let wrongFormat = true;
+                if(element.style.border == '2px solid #CD2C2C') {
+                    correctFormat = true;
                 }
             })
-            if(wrongFormat == true) {
+            if(correctFormat == true) {
                 document.getElementById('blur2').style.width = "100%";
                 document.getElementById('blur2').style.height = "100%";
                 popUp.style.top = "25%"

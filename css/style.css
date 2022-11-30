@@ -1336,10 +1336,21 @@ form input[type="radio"] {
     z-index: 2;
 }
 
+@media(max-width:1280px) {
+    form {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media(max-width:560px) {
     .ordered {
         display: grid;
         grid-template-columns: 1fr;
+    }
+    .inputs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
     .grandTotal {
         border-radius: 0 0 10px 10px;
