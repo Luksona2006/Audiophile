@@ -203,7 +203,7 @@ function countDownList(e) {
     itemsArray = []
     localStorage.setItem('totalSum', JSON.stringify(totalSum));
     document.querySelectorAll('.item').forEach(element => {
-        itemsArray.push(element.innerHTML)
+        itemsArray.push(`<div class="item">${element.innerHTML}</div>`)
     })
     localStorage.setItem('items', JSON.stringify(itemsArray));
 
@@ -253,7 +253,7 @@ function countUpList(e) {
     itemsArray = []
     localStorage.setItem('totalSum', JSON.stringify(totalSum));
     document.querySelectorAll('.item').forEach(element => {
-        itemsArray.push(element.innerHTML)
+        itemsArray.push(`<div class="item">${element.innerHTML}</div>`)
     })
     localStorage.setItem('items', JSON.stringify(itemsArray));
 }
@@ -287,13 +287,13 @@ function addtocart(e) {
     }
 
     if (currentProductName.endsWith('HEADPHONES')) {
-        currentProductName = currentProductName.slice(0, currentProductName.length - 10);
+        currentProductName = currentProductName.slice(0, currentProductName.length - 11);
     }
     if (currentProductName.endsWith('SPEAKER')) {
-        currentProductName = currentProductName.slice(0, currentProductName.length - 7);
+        currentProductName = currentProductName.slice(0, currentProductName.length - 8);
     }
     if (currentProductName.endsWith('EARPHONES')) {
-        currentProductName = currentProductName.slice(0, currentProductName.length - 9);
+        currentProductName = currentProductName.slice(0, currentProductName.length - 10);
     }
 
     for (let g = 0; g < currentProductPrice.length; g++) {
@@ -306,44 +306,6 @@ function addtocart(e) {
     setTimeout(() => {
         window.onscroll = () => { window.scrollTo(window.scrollTo(0, 0)); };
     }, 400);
-
-    // IF PRODUCT EXIST IN CART
-    // for (let j = 1; j < items.children.length; j++) {
-    //     if (items.children[j].children[0].children[1].children[0].innerText === `${currentProductName}`) {
-    //         let sameProductQuantity = items.children[j].children[1].children[1].innerHTML;
-    //         currentProductQuantity += +sameProductQuantity;
-
-    //         items.children[j].children[1].children[1].innerHTML = `${currentProductQuantity}`;
-    //     // } else {
-    //     //     if (j >= items.children.length) {
-    //     //         let currentItem = `
-    //     //                             <div class="item">
-    //     //                                 <div class="item-info">
-    //     //                                     <img src="${currentProductImg}" style="width: 64px; height: 64px" alt="item">
-    //     //                                     <div class="name-price">
-    //     //                                         <h6>${currentProductName}</h6>
-    //     //                                         <span>${currentProductPrice}</span>
-    //     //                                     </div>
-    //     //                                 </div>
-    //     //                                 <div class="counter">
-    //     //                                     <button>
-    //     //                                         <svg width="5" height="2" viewBox="0 0 5 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-    //     //                                             <path opacity="0.25" d="M0.550508 1.516V0.2875H4.45051V1.516H0.550508Z" fill="black"/>
-    //     //                                         </svg>
-    //     //                                     </button>
-    //     //                                     <h4>${currentProductQuantity}</h4>
-    //     //                                     <button>
-    //     //                                         <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-    //     //                                             <path opacity="0.25" d="M2.89362 6.258V3.931H0.566621V2.7025H2.89362V0.382H4.12212V2.7025H6.43612V3.931H4.12212V6.258H2.89362Z" fill="black"/>
-    //     //                                         </svg> 
-    //     //                                     </button>            
-    //     //                                 </div>
-    //     //                             </div>
-    //     //                             `
-    //     //         items.insertAdjacentHTML('beforeend', currentItem);
-    //     //     }
-    //     // }
-    // }
 
     let currentItem = `
                         <div class="item">
@@ -369,10 +331,35 @@ function addtocart(e) {
                             </div>
                         </div>
                         `
-    items.insertAdjacentHTML('beforeend', currentItem);
-    itemsArray.push(`${currentItem}`); // For localStorage
-    localStorage.setItem('items', JSON.stringify(itemsArray))
-    // items.insertAdjacentHTML('beforeend', `${JSON.parse(localStorage.getItem('items'))}`)
+    // IF PRODUCT EXIST IN CART
+
+    let sameProduct = false;
+    for (let j = 1; j < items.children.length; j++) {
+        if (items.children[j].children[0].children[1].children[0].innerText == `${currentProductName}`) {
+            sameProduct = true;
+            console.log('true twetwetw')
+            let sameProductQuantity = items.children[j].children[1].children[1].innerHTML;
+            currentProductQuantity = +currentProductQuantity;
+            currentProductQuantity += +sameProductQuantity;
+            items.children[j].children[1].children[1].innerHTML = `${currentProductQuantity}`;
+
+            itemsArray = []
+            document.querySelectorAll('.item').forEach(element => {
+                itemsArray.push(`<div class="item">${element.innerHTML}</div>`)
+            })
+            localStorage.setItem('items', JSON.stringify(itemsArray));
+        } 
+    }
+    if(sameProduct !== true) {
+        items.insertAdjacentHTML('beforeend', currentItem);
+        itemsArray.push(`${currentItem}`);
+        localStorage.setItem('items', JSON.stringify(itemsArray))
+        
+        let cartItemsSum = items.children.length - 1;
+        cartSumAndRemove.children[0].innerHTML = `CART (${cartItemsSum})`;
+        newProductAdded.style.display = "block"
+        newProductAdded.innerText = `${cartItemsSum}`
+    }
     // GET TOTAL
     let sum = +updatedPrice * +currentProductQuantity;
     totalSum += sum;
@@ -380,10 +367,6 @@ function addtocart(e) {
     localStorage.setItem('totalSum', totalSum)
     totalSumText = `$ ${totalSum}`
 
-    let cartItemsSum = items.children.length - 1;
-    cartSumAndRemove.children[0].innerHTML = `CART (${cartItemsSum})`;
-    newProductAdded.style.display = "block"
-    newProductAdded.innerText = `${cartItemsSum}`
     count = 1;
     counter.innerHTML = `${count}`;
     for (let g = 0; g <= document.getElementsByClassName('item')[0].parentElement.children.length; g++) {

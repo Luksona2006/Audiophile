@@ -475,7 +475,9 @@
                 popUp.style.top = "25%"
                 // GET ITEMS
                 let boughtItems = document.getElementById('boughtItems');
-                boughtItems.insertAdjacentHTML('beforeend', JSON.parse(localStorage.getItem('items')));
+                JSON.parse(localStorage.getItem('items')).forEach(element => {
+                    boughtItems.insertAdjacentHTML('beforeend', element);
+                })
                 document.querySelectorAll('.counter').forEach((element, index) => {
                     element.children[0].style.display = 'none';
                     element.children[1].innerHTML += 'x'
@@ -484,6 +486,10 @@
                 document.querySelectorAll('.item').forEach(element => {
                     element.style.gap = '24px'
                 })
+
+                itemsArray = []; 
+                localStorage.removeItem('items');
+                localStorage.removeItem('totalSum');
         }
     </script>
     <script src="https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json">
