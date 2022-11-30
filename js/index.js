@@ -51,7 +51,7 @@ if(typeof localStorage['items'] !== 'undefined') {
 
 
 let itemsArray = [];
-if(localStorage['items'] !== 'undefined') {
+if(localStorage['items'] !== undefined) {
     JSON.parse(localStorage.getItem('items')).forEach(element => {
         itemsArray.push(element);
     })
