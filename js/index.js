@@ -198,6 +198,14 @@ function countDownList(e) {
         document.getElementById('cartSumAndRemove').children[0].innerHTML = `<h4>CART (${document.getElementsByClassName('item').length})</h4>`
         newProductAdded.innerText = `${document.getElementsByClassName('item').length}`
     }
+
+    itemsArray = []
+    localStorage.setItem('totalSum', JSON.stringify(totalSum));
+    document.querySelectorAll('.item').forEach(element => {
+        itemsArray.push(element.innerHTML)
+    })
+    localStorage.setItem('items', JSON.stringify(itemsArray));
+
     if (document.getElementsByClassName('item').length <= 0) {
         currentQuantityList.parentElement.parentElement.remove()
         items.innerHTML = `<h2 class="empty-text">CART IS EMPTY</h2>`;
@@ -211,8 +219,6 @@ function countDownList(e) {
         localStorage.removeItem('items');
         localStorage.removeItem('totalSum');
     }
-    localStorage.setItem('totalSum', JSON.stringify(totalSum));
-
 }
 
 
@@ -243,6 +249,12 @@ function countUpList(e) {
     currentQuantityList2.innerHTML = `${currentQuantityListSum2}`;
 
     localStorage.setItem('totalSum', JSON.stringify(totalSum));
+    itemsArray = []
+    localStorage.setItem('totalSum', JSON.stringify(totalSum));
+    document.querySelectorAll('.item').forEach(element => {
+        itemsArray.push(element.innerHTML)
+    })
+    localStorage.setItem('items', JSON.stringify(itemsArray));
 }
 
 function addtocart(e) {
