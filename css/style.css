@@ -1102,7 +1102,28 @@ form {
     display: grid;
     grid-template-columns: 2fr 1fr ;
     gap: 40px;
-    margin: 120px 0;
+    margin: 160px 0;
+}
+
+form label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form span {
+    font-family: 'Manrope',sans-serif;
+    display: none;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: -0.214286px;
+    color: #CD2C2C;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 form input[type="number"],form input[type="email"],form input[type="text"], form input[type="tel"], form input[list="country"]{
