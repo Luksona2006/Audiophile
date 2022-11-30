@@ -44,6 +44,7 @@ nav.insertAdjacentHTML('beforeend', allInfo);
 if(typeof localStorage['items'] !== 'undefined') {
     JSON.parse(localStorage.getItem('items')).forEach(element => {
         document.getElementById('items').insertAdjacentHTML('beforeend',`${element}`)
+        newProductAdded.style.display = "block"
     })
 }
 
