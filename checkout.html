@@ -62,9 +62,9 @@
     </header>
     <main>
         <div class="container">
-            <a href="product.html">
-                <p class="black-p50" id="goBack">GO BACK</p>
-            </a>
+            <button class="black-p50" onclick="history.go(-1)" id="goBack">GO BACK</button>
+        </div>
+        <div class="container">
             <form>
                 <div class="forms">
                     <h2 class="black-32px">CHECKOUT</h2>
@@ -102,7 +102,7 @@
                             </div>
                             <div>
                                 <label for="country" class="black-12px">Country<span>Wrong format</span></label>
-                                <input id="country" name="country" list="country" name="country" class="datalist-input"
+                                <input id="countryInput" name="country" list="country" name="country" class="datalist-input"
                                     placeholder="United States" />
                                 <datalist id="country">
                                     <option value="Afghanistan" />
@@ -364,7 +364,7 @@
                         <div><p class="black-p50">VAT(INCLUDED)</p><h3 class="black-18px">$ 0</h3></div>
                         <div><p class="black-p50">GRAND TOTAL</p><h3 class="orange-18px">$ 0</h3></div>
                     </div>
-                    <button class="orange-button" id="pay" onclick="payForItems()" type="submit">CONTINUE & PAY</button>
+                    <button class="orange-button" type="submit">CONTINUE & PAY</button>
                 </div>
             </form>
         </div>
@@ -460,32 +460,29 @@
         const address = document.getElementById('address');
         const zip = document.getElementById('zip');
         const city = document.getElementById('city');
-        const country = document.getElementById('country')
+        const country = document.getElementById('countryInput')
 
+        let popUp = document.getElementById('popUp');
+        let pay = document.getElementById('pay');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            form.querySelectorAll('input').forEach(element => {
+        function buyItems(event) {
+            event.preventDefault();
+            let wrongFormat = false;
+            form.querySelectorAll('input').forEach((element, index) => {
                 if(element.value == '' || element.value == null) {
                     element.style.border = '2px solid #CD2C2C';
                     element.parentElement.querySelector('label').style.color = '#CD2C2C';
                     element.parentElement.querySelector('label').insertAdjacentHTML('beforeend',`<span>Wrong format</span>`)
                     element.parentElement.querySelector('label').querySelector('span').style.display = 'inline-block';
+                    wrongFormat = true
+                }else {
+                    element.style.border = '1px solid #CFCFCF'
+                    element.parentElement.querySelector('label').style.color = '#000000'
+                    element.parentElement.querySelector('label').querySelector('span').style.display = 'none';
                 }
-            })
-        })
-
-        // POP UP
-
-        let popUp = document.getElementById('popUp');
-        function payForItems() {
-            let correctFormat = false;
-            form.querySelectorAll('input').forEach(element => {
-                if(element.style.border == '2px solid #CD2C2C') {
-                    correctFormat = true;
-                }
-            })
-            if(correctFormat == true) {
+            }) 
+            
+            if(wrongFormat !== true) {
                 document.getElementById('blur2').style.width = "100%";
                 document.getElementById('blur2').style.height = "100%";
                 popUp.style.top = "25%"
@@ -511,8 +508,10 @@
                 if(JSON.parse(localStorage.getItem('items')).length > 1) {
                     boughtItems.insertAdjacentHTML('beforeend', `<button id="itemsStore" onclick="showProducts()">and ${JSON.parse(localStorage.getItem('items')).length - 1} other item(s)</button>`)
                 }
-            } 
+            }
         }
+
+        form.addEventListener('submit', buyItems);  
         
         function clearStorage() {
             localStorage.removeItem('items');

@@ -288,7 +288,7 @@ function addtocart(e) {
     let currentProductName = ''
 
     let currentProductPrice = ''
-    let currentProductImg = currentProduct.parentNode.children[1].src;
+    let currentProductImg = currentProduct.parentNode.children[0].src;
     let currentProductQuantity = '';
 
     // BECAUSE OF CHILDS WE WIL DEFINE HAS HE MORE CHILD ELEMENTS THAN IT SHOULD BE WITHOUT SPAN TEXT ('NEW PRODUCT') OR NOT;
