@@ -30,7 +30,7 @@
                     <p class="white-18px">$ 0</p>
                 </div>
             </div>
-            <a href="index.html"><button id="backToHome" onclick="clearStorage()" class="orange-button">BACK TO HOME</button></a>
+            <a href="index.html"><button class="orange-button">BACK TO HOME</button></a>
         </div>
     </div>
     <header>
@@ -72,15 +72,15 @@
                         <h6 class="orange-13px">BILLING DETAILS</h6>
                         <div class="inputs">
                             <div>
-                                <label for="name" class="black-12px">Name<span>Wrong format</span></label>
+                                <label for="name" class="black-12px">Name</label>
                                 <input id="name" name="name" type="text" placeholder="Alexei Ward">
                             </div>
                             <div>
-                                <label for="email" class="black-12px">Email Address<span>Wrong format</span></label>
+                                <label for="email" class="black-12px">Email Address</label>
                                 <input id="email" name="email" type="email" placeholder="alexei@mail.com">
                             </div>
                             <div>
-                                <label for="tel" class="black-12px">Phone Number<span>Wrong format</span></label>
+                                <label for="tel" class="black-12px">Phone Number</label>
                                 <input id="tel" name="tel" type="tel" placeholder="+1 202-555-0136">
                             </div>
                         </div>
@@ -88,20 +88,20 @@
                     <div class="shipping-info">
                         <h6 class="orange-13px">SHIPPING INFO</h6>
                         <div>
-                            <label for="address" class="black-12px">Address<span>Wrong format</span></label>
+                            <label for="address" class="black-12px">Address</label>
                             <input id="address" name="address" type="text" placeholder="1137 Williams Avenue">
                         </div>
                         <div class="inputs">
                             <div>
-                                <label for="zip" class="black-12px">ZIP Code<span>Wrong format</span></label>
+                                <label for="zip" class="black-12px">ZIP Code</label>
                                 <input id="zip" name="zip" type="number" placeholder="10001">
                             </div>
                             <div>
-                                <label for="city" class="black-12px">City<span>Wrong format</span></label>
+                                <label for="city" class="black-12px">City</label>
                                 <input id="city" name="city" type="text" placeholder="New York">
                             </div>
                             <div>
-                                <label for="country" class="black-12px">Country<span>Wrong format</span></label>
+                                <label for="country" class="black-12px">Country</label>
                                 <input id="countryInput" name="country" list="country" name="country" class="datalist-input"
                                     placeholder="United States" />
                                 <datalist id="country">
@@ -347,9 +347,33 @@
                                 </datalist>
                             </div>
                         </div>
-                        <div class="captions">
+                        <div class="choose-method">
                             <h6 class="orange-13px">PAYMANT DETAILS</h6>
-                            
+                            <div class="methods">
+                                <div class="method-label">
+                                    <label class="black-12px" for="method">Payment Method</label>
+                                </div>
+                                <div class="methods-div">
+                                    <div>
+                                        <label class="black-14px" for="cash">e-Money</label>
+                                        <input onclick="eMoneyInputsShow()" id="eMoney" name="cash" type="radio">                                     
+                                    </div>  
+                                    <div>
+                                        <label class="black-14px" for="cash">Cash on Delivery</label>
+                                        <input onclick="eMoneyInputsHide()" id="cash" name="cash" type="radio">
+                                    </div>                                                                
+                                </div>
+                            </div>
+                            <div class="inputs" id="eMoneyDivs">
+                                <div>
+                                    <label class="black-12px" for="eMoneyNum">e-Money Number</label>
+                                    <input id="eMoneyNum" name="eMoneyNum" type="number">
+                                </div>
+                                <div>
+                                    <label class="black-12px" for="eMoneyPin">e-Money PIN</label>
+                                    <input id="eMoneyPin" name="eMoneyPin" type="number">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -432,15 +456,26 @@
         let allInfo = `<button id="basket"><img src="img/basket.svg" alt="basket"></button></div>`;
         nav.insertAdjacentHTML('beforeend', allInfo)
 
-        JSON.parse(localStorage.getItem('items')).forEach(element => {
-            document.getElementById('paymentItemsList').insertAdjacentHTML('beforeend', element)
-        })
+        if(typeof localStorage['items'] === 'undefined') {
+            document.getElementById('paymentItemsList').insertAdjacentHTML("beforeend",`<h5 class="empty-text">NO ITEMS TO ORDER</h5>`);
+        } else {
+            JSON.parse(localStorage.getItem('items')).forEach(element => {
+                document.getElementById('paymentItemsList').insertAdjacentHTML('beforeend', element)
+            })
+        }
+    
         document.querySelectorAll('.counter').forEach(element => {
             element.children[0].style.display = 'none';
             element.children[1].innerHTML += 'x'
             element.children[2].style.display = 'none';
         })
-        document.querySelector('.spended-money').children[0].children[1].innerHTML = `$ ${JSON.parse(localStorage.getItem('totalSum'))}`
+
+        if(typeof localStorage['items'] === 'undefined') {
+            document.querySelector('.spended-money').children[0].children[1].innerHTML = `$ 0`
+        } else {
+            document.querySelector('.spended-money').children[0].children[1].innerHTML = `$ ${JSON.parse(localStorage.getItem('totalSum'))}`
+        }
+
         let shipping = 12.5;
         shipping = Math.round(shipping * +JSON.parse(localStorage.getItem('quantity')) * 100) / 100; 
         document.querySelector('.spended-money').children[1].children[1].innerHTML = `$ ${shipping}`;
@@ -460,25 +495,59 @@
         const address = document.getElementById('address');
         const zip = document.getElementById('zip');
         const city = document.getElementById('city');
-        const country = document.getElementById('countryInput')
+        const country = document.getElementById('countryInput');
+        const eMoney = document.getElementById('eMoney');
+        const cash = document.getElementById('cash');
+
+        const eMoneyDivs = document.getElementById('eMoneyDivs');
+        const eMoneyNum = document.getElementById('eMoneyNum');
+        const eMoneyPin = document.getElementById('eMoneyPin');
+
+        let methodChoosed = false;
+        let cashMethod = true;
+        function eMoneyInputsShow() {
+            eMoneyDivs.style.display = 'grid';
+            methodChoosed = true;
+            cashMethod = false;
+        }
+        function eMoneyInputsHide() {
+            eMoneyDivs.style.display = 'none';
+            methodChoosed = true;
+            cashMethod = true;
+        }
 
         let popUp = document.getElementById('popUp');
         let pay = document.getElementById('pay');
-
         function buyItems(event) {
             event.preventDefault();
             let wrongFormat = false;
+            if(typeof localStorage['items'] === 'undefined') {
+                document.getElementById('paymentItemsList').querySelector('h5').style.color = "#CD2C2C";
+                wrongFormat = true;
+            }
             form.querySelectorAll('input').forEach((element, index) => {
-                if(element.value == '' || element.value == null) {
+                if(element.value == '' || element.value == null && element.name !== 'cash' && element.name != 'eMoneyNum' && element.name != 'eMoneyPin') {
                     element.style.border = '2px solid #CD2C2C';
                     element.parentElement.querySelector('label').style.color = '#CD2C2C';
                     element.parentElement.querySelector('label').insertAdjacentHTML('beforeend',`<span>Wrong format</span>`)
                     element.parentElement.querySelector('label').querySelector('span').style.display = 'inline-block';
                     wrongFormat = true
                 }else {
-                    element.style.border = '1px solid #CFCFCF'
-                    element.parentElement.querySelector('label').style.color = '#000000'
-                    element.parentElement.querySelector('label').querySelector('span').style.display = 'none';
+                    if(element.name == 'cash' && methodChoosed == false) {
+                        document.querySelector('.method-label').querySelector('label').style.color = '#CD2C2C';
+                        document.querySelector('.method-label').insertAdjacentHTML('beforeend',`<span>Wrong format</span>`)
+                        document.querySelector('.method-label').querySelector('span').style.display = 'inline-block';
+                    } else {
+                        if(element.name == 'cash' && methodChoosed == true && document.querySelector('.method-label').querySelector('span') != undefined) {
+                            document.querySelector('.method-label').querySelector('label').style.color = '#000000';
+                            document.querySelector('.method-label').querySelector('span').style.display = 'none';
+                        } else {
+                            if(element.name == 'eMoneyNum' || element.name == 'eMoneyPin' && cashMethod == true) {
+                                eMoneyNum.value = '1111'
+                                eMoneyPin.value = '1111'
+                            }
+                        }
+                    }
                 }
             }) 
             
@@ -508,16 +577,20 @@
                 if(JSON.parse(localStorage.getItem('items')).length > 1) {
                     boughtItems.insertAdjacentHTML('beforeend', `<button id="itemsStore" onclick="showProducts()">and ${JSON.parse(localStorage.getItem('items')).length - 1} other item(s)</button>`)
                 }
+
+                document.getElementById('paymentItemsList').innerHTML = '';
+                document.querySelector('.spended-money').children[0].children[1].innerHTML = `$ 0`;
+                document.querySelector('.spended-money').children[1].children[1].innerHTML = `$ 0`;
+                document.querySelector('.spended-money').children[2].children[1].innerHTML = `$ 0`;
+                document.querySelector('.spended-money').children[3].children[1].innerHTML = `$ 0`;
+
+                localStorage.removeItem('items');
+                localStorage.removeItem('quantity');
+                localStorage.removeItem('totalSum');
             }
         }
 
         form.addEventListener('submit', buyItems);  
-        
-        function clearStorage() {
-            localStorage.removeItem('items');
-            localStorage.removeItem('quantity');
-            localStorage.removeItem('totalSum');
-        }
 
         function showProducts() {
             boughtItems.querySelectorAll('.item').forEach((element,index) => {
