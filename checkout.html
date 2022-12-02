@@ -561,6 +561,7 @@
             }) 
             
             if(wrongFormat !== true) {
+                window.scrollTo({ top: 50, behavior: 'smooth' });
                 document.getElementById('blur2').style.width = "100%";
                 document.getElementById('blur2').style.height = "100%";
                 popUp.style.top = "25%"
@@ -597,6 +598,7 @@
                 localStorage.removeItem('items');
                 localStorage.removeItem('quantity');
                 localStorage.removeItem('totalSum');
+                
             }
         }
 
