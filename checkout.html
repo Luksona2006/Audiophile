@@ -452,6 +452,30 @@
     </footer>
 
     <script>
+        let showMenu = document.getElementById('showMenu');
+        let hideMenu = document.getElementById('hideMenu');
+        let navLinks = document.getElementById('navLinks');
+
+        function showmenu() {
+            navLinks.style.display = "block"
+            setTimeout(() => {
+                navLinks.style.left = "0";
+                navLinks.style.opacity = "1";
+            }, 200);
+        }
+        function hidemenu() {
+            navLinks.style.left = "-100%";
+            navLinks.style.opacity = "0";
+            setTimeout(() => {
+                navLinks.style.display = "none"
+            }, 500);
+        }
+
+        showMenu.addEventListener('click', showmenu)
+        hideMenu.addEventListener('click', hidemenu)
+    </script>
+
+    <script>
         let nav = document.querySelector('header').querySelector('nav');
         let allInfo = `<button id="basket"><img src="img/basket.svg" alt="basket"></button></div>`;
         nav.insertAdjacentHTML('beforeend', allInfo)
