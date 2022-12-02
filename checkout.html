@@ -509,11 +509,23 @@
             eMoneyDivs.style.display = 'grid';
             methodChoosed = true;
             cashMethod = false;
+            eMoneyNum.value = ''
+            eMoneyPin.value = ''
+            if(document.querySelector('.method-label').querySelector('span') != undefined) {
+                document.querySelector('.method-label').querySelector('label').style.color = '#000000';
+                document.querySelector('.method-label').querySelector('span').style.display = 'none';
+            }      
         }
         function eMoneyInputsHide() {
             eMoneyDivs.style.display = 'none';
             methodChoosed = true;
             cashMethod = true;
+            eMoneyNum.value = '11111'
+            eMoneyPin.value = '11111'
+            if(document.querySelector('.method-label').querySelector('span') != undefined) {
+                document.querySelector('.method-label').querySelector('label').style.color = '#000000';
+                document.querySelector('.method-label').querySelector('span').style.display = 'none';
+            } 
         }
 
         let popUp = document.getElementById('popUp');
@@ -525,8 +537,8 @@
                 document.getElementById('paymentItemsList').querySelector('h5').style.color = "#CD2C2C";
                 wrongFormat = true;
             }
-            form.querySelectorAll('input').forEach((element, index) => {
-                if(element.value == '' || element.value == null && element.name !== 'cash' && element.name != 'eMoneyNum' && element.name != 'eMoneyPin') {
+            form.querySelectorAll('input').forEach(element => {
+                if(element.value == '' || element.value == null && element.name !== 'cash') {
                     element.style.border = '2px solid #CD2C2C';
                     element.parentElement.querySelector('label').style.color = '#CD2C2C';
                     element.parentElement.querySelector('label').insertAdjacentHTML('beforeend',`<span>Wrong format</span>`)
@@ -535,20 +547,17 @@
                 }else {
                     if(element.name == 'cash' && methodChoosed == false) {
                         document.querySelector('.method-label').querySelector('label').style.color = '#CD2C2C';
-                        document.querySelector('.method-label').insertAdjacentHTML('beforeend',`<span>Wrong format</span>`)
+                        document.querySelector('.method-label').insertAdjacentHTML('beforeend',`<span>Choose Method</span>`)
                         document.querySelector('.method-label').querySelector('span').style.display = 'inline-block';
+                        wrongFormat = true
                     } else {
-                        if(element.name == 'cash' && methodChoosed == true && document.querySelector('.method-label').querySelector('span') != undefined) {
-                            document.querySelector('.method-label').querySelector('label').style.color = '#000000';
-                            document.querySelector('.method-label').querySelector('span').style.display = 'none';
-                        } else {
-                            if(element.name == 'eMoneyNum' || element.name == 'eMoneyPin' && cashMethod == true) {
-                                eMoneyNum.value = '1111'
-                                eMoneyPin.value = '1111'
-                            }
-                        }
+                        if(element.value != '' || element.value != null && element.name !== 'cash' && element.parentElement.querySelector('label').querySelector('span') != undefined) {
+                            element.style.border = '1px solid #CFCFCF';
+                            element.parentElement.querySelector('label').style.color = '#000000';
+                            
+                        } 
                     }
-                }
+                }eMoneyNum.parentElement.querySelector('label').querySelector('span')
             }) 
             
             if(wrongFormat !== true) {
@@ -579,6 +588,7 @@
                 }
 
                 document.getElementById('paymentItemsList').innerHTML = '';
+                document.getElementById('paymentItemsList').insertAdjacentHTML("beforeend",`<h5 class="empty-text">NO ITEMS TO ORDER</h5>`);
                 document.querySelector('.spended-money').children[0].children[1].innerHTML = `$ 0`;
                 document.querySelector('.spended-money').children[1].children[1].innerHTML = `$ 0`;
                 document.querySelector('.spended-money').children[2].children[1].innerHTML = `$ 0`;
