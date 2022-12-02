@@ -352,6 +352,7 @@
                             <div class="methods">
                                 <div class="method-label">
                                     <label class="black-12px" for="method">Payment Method</label>
+                                    <span>Choose method</span>
                                 </div>
                                 <div class="methods-div">
                                     <div>
@@ -537,7 +538,6 @@
             eMoneyPin.value = ''
             if(document.querySelector('.method-label').querySelector('span') != undefined) {
                 document.querySelector('.method-label').querySelector('label').style.color = '#000000';
-                document.querySelector('.method-label').querySelector('span').style.display = 'none';
             }      
         }
         function eMoneyInputsHide() {
@@ -548,7 +548,6 @@
             eMoneyPin.value = '11111'
             if(document.querySelector('.method-label').querySelector('span') != undefined) {
                 document.querySelector('.method-label').querySelector('label').style.color = '#000000';
-                document.querySelector('.method-label').querySelector('span').style.display = 'none';
             } 
         }
 
@@ -565,23 +564,18 @@
                 if(element.value == '' || element.value == null && element.name !== 'cash') {
                     element.style.border = '2px solid #CD2C2C';
                     element.parentElement.querySelector('label').style.color = '#CD2C2C';
-                    element.parentElement.querySelector('label').insertAdjacentHTML('beforeend',`<span>Wrong format</span>`)
-                    element.parentElement.querySelector('label').querySelector('span').style.display = 'inline-block';
                     wrongFormat = true
                 }else {
                     if(element.name == 'cash' && methodChoosed == false) {
                         document.querySelector('.method-label').querySelector('label').style.color = '#CD2C2C';
-                        document.querySelector('.method-label').insertAdjacentHTML('beforeend',`<span>Choose Method</span>`)
-                        document.querySelector('.method-label').querySelector('span').style.display = 'inline-block';
                         wrongFormat = true
                     } else {
-                        if(element.value != '' || element.value != null && element.name !== 'cash' && element.parentElement.querySelector('label').querySelector('span') != undefined) {
+                        if(element.value != '' || element.value != null && element.name !== 'cash') {
                             element.style.border = '1px solid #CFCFCF';
-                            element.parentElement.querySelector('label').style.color = '#000000';
-                            
+                            element.parentElement.querySelector('label').style.color = '#000000';                  
                         } 
                     }
-                }eMoneyNum.parentElement.querySelector('label').querySelector('span')
+                }
             }) 
             
             if(wrongFormat !== true) {

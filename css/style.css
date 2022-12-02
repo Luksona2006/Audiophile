@@ -1001,15 +1001,6 @@ form label {
     align-items: center;
 }
 
-form span {
-    font-family: 'Manrope',sans-serif;
-    display: none;
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: -0.214286px;
-    color: #CD2C2C;
-}
-
 .forms {
     display: flex;
     flex-direction: column;
