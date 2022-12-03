@@ -319,9 +319,6 @@ function addtocart(e) {
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => {
-        window.onscroll = () => { window.scrollTo(window.scrollTo(0, 0)); };
-    }, 400);
 
     let currentItem = `
                         <div class="item">
